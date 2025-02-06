@@ -1,11 +1,32 @@
+import os
 from typing import List
-
-from crewai import Agent, Crew, Process, Task
+from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from pydantic import BaseModel
+from dotenv import dotenv_values
 
 from youtube_idea_generator_crew.tools.SearchYouTubeTool import (
     YoutubeVideoSearchAndDetailsTool,
+)
+
+# llm = LLM(
+#     base_url=os.getenv("OPENAI_API_BASE"),
+#     api_key=os.getenv("OPENAI_API_KEY"),
+#     model=os.getenv("OPENAI_MODEL_NAME"),  # 本次使用的模型
+#     temperature=0.7,  # 发散的程度
+#     # timeout=None,# 服务请求超时
+#     # max_retries=2,# 失败重试最大次数
+# )
+
+# llm = LLM(
+#     base_url=os.getenv("GOOGLE_API_URL"),
+#     api_key=os.getenv("GOOGLE_API_KEY"),
+#     model=os.getenv("GOOGLE_MODEL_NAME"),
+# )
+
+llm = LLM(
+    model="groq/llama-3.3-70b-versatile",
+    temperature=0.7
 )
 
 
@@ -34,25 +55,36 @@ class YoutubeIdeaGeneratorCrew:
 
     @agent
     def comment_filter_agent(self) -> Agent:
-        return Agent(config=self.agents_config["comment_filter_agent"], verbose=True)
+        return Agent(
+            config=self.agents_config["comment_filter_agent"],
+            llm=llm,
+            verbose=True
+        )
 
     @agent
     def video_idea_generator_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config["video_idea_generator_agent"], verbose=True
+            config=self.agents_config["video_idea_generator_agent"], 
+            llm=llm,
+            verbose=True
         )
 
     @agent
     def research_agent(self) -> Agent:
         return Agent(
             config=self.agents_config["research_agent"],
+            llm=llm,
             tools=[YoutubeVideoSearchAndDetailsTool()],
             verbose=True,
         )
 
     @agent
     def scoring_agent(self) -> Agent:
-        return Agent(config=self.agents_config["scoring_agent"], verbose=True)
+        return Agent(
+            config=self.agents_config["scoring_agent"], 
+            llm=llm,
+            verbose=True
+        )
 
     @task
     def filter_comments_task(self) -> Task:
