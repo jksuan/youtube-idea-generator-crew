@@ -10,7 +10,7 @@ from youtube_idea_generator_crew.tools.SearchYouTubeTool import (
 )
 
 llm = LLM(
-    # base_url=os.getenv("OPENAI_API_BASE"),
+    base_url=os.getenv("OPENAI_API_BASE"),
     api_key=os.getenv("OPENAI_API_KEY"),
     model=os.getenv("OPENAI_MODEL_NAME"),  # 本次使用的模型
     temperature=0.7,  # 发散的程度
