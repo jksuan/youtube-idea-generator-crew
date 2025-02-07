@@ -19,13 +19,6 @@ llm = LLM(
 )
 
 # llm = LLM(
-#     # base_url=os.getenv("GEMINI_API_URL"),
-#     api_key=os.getenv("GEMINI_API_KEY"),
-#     model=os.getenv("GEMINI_MODEL_NAME"),
-#     temperature=0.7
-# )
-
-# llm = LLM(
 #     model="groq/llama-3.3-70b-versatile",
 #     temperature=0.7
 # )
