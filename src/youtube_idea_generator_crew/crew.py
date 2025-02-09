@@ -9,19 +9,29 @@ from youtube_idea_generator_crew.tools.SearchYouTubeTool import (
     YoutubeVideoSearchAndDetailsTool,
 )
 
+# llm = LLM(
+#     base_url=os.getenv("OPENAI_API_BASE"),
+#     api_key=os.getenv("OPENAI_API_KEY"),
+#     model=os.getenv("OPENAI_MODEL_NAME"),  # 本次使用的模型
+#     temperature=0.7,  # 发散的程度
+#     # timeout=None,# 服务请求超时
+#     # max_retries=2,# 失败重试最大次数
+# )
+
+# llm = LLM(
+#     base_url=os.getenv("GROQ_API_BASE"),
+#     api_key=os.getenv("GROQ_API_KEY"),
+#     model=os.getenv("GROQ_MODEL_NAME"),  # 本次使用的模型
+#     temperature=0.7,  # 发散的程度
+# )
+
 llm = LLM(
-    base_url=os.getenv("OPENAI_API_BASE"),
-    api_key=os.getenv("OPENAI_API_KEY"),
-    model=os.getenv("OPENAI_MODEL_NAME"),  # 本次使用的模型
+    api_key=os.getenv("GEMINI_API_KEY"),
+    model=os.getenv("GEMINI_MODEL_NAME"),  # 本次使用的模型
     temperature=0.7,  # 发散的程度
     # timeout=None,# 服务请求超时
     # max_retries=2,# 失败重试最大次数
 )
-
-# llm = LLM(
-#     model="groq/llama-3.3-70b-versatile",
-#     temperature=0.7
-# )
 
 
 class ResearchItem(BaseModel):
